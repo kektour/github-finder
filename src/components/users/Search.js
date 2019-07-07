@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Search extends Component {
-  static propTypes = { searchUsers: PropTypes.func.isRequired };
+  static propTypes = {
+    searchUsers: PropTypes.func.isRequired,
+    clearUsers: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired
+  };
 
   state = {
     text: ''
@@ -19,6 +23,7 @@ class Search extends Component {
   };
 
   render() {
+    const { showClear, clearUsers } = this.props;
     const { text } = this.state;
 
     return (
@@ -37,6 +42,11 @@ class Search extends Component {
             value='Search'
           />
         </form>
+        {showClear && (
+          <button className='btn btn-light btn-block' onClick={clearUsers}>
+            Clear
+          </button>
+        )}
       </div>
     );
   }

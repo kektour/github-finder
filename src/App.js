@@ -25,6 +25,7 @@ class App extends Component {
     });
   }
 
+  // Search Github users
   searchUsers = async text => {
     this.setState({ loading: true });
     const res = await axios.get('https://api.github.com/search/users', {
@@ -40,6 +41,14 @@ class App extends Component {
     });
   };
 
+  // Clear users from state
+  clearUsers = () => {
+    this.setState({
+      users: [],
+      loading: false
+    });
+  };
+
   render() {
     const { loading, users } = this.state;
 
@@ -47,7 +56,11 @@ class App extends Component {
       <div className='App'>
         <Havbar />
         <div className='container'>
-          <Search searchUsers={this.searchUsers} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+          />
           <Users loading={loading} users={users} />
         </div>
       </div>
