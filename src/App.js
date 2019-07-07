@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Havbar from './components/layout/Havbar';
+import UserItem from './components/users/UserItem';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +8,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Havbar />
-        <h1>Hello world</h1>
+        <UserItem />
       </div>
     );
   }
