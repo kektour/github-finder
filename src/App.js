@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Havbar from './components/layout/Havbar';
-import UserItem from './components/users/UserItem';
+import Users from './components/users/Users';
 import './App.css';
 
 class App extends Component {
@@ -8,7 +8,9 @@ class App extends Component {
     return (
       <div className='App'>
         <Havbar />
-        <UserItem />
+        <div className='container'>
+          <Users />
+        </div>
       </div>
     );
   }
