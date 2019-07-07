@@ -25,6 +25,12 @@ export default function(state, action) {
         users: [],
         loading: false
       };
+    case GET_USER:
+      return {
+        ...state.users,
+        user: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

@@ -11,17 +11,9 @@ import GithubState from './context/github/GithubState';
 import './App.css';
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-
-  // Clear users from state
-  const clearUsers = () => {
-    setUsers([]);
-    setLoading(false);
-  };
 
   // Set Alert
   const showAlert = (msg, type) => {
@@ -32,19 +24,6 @@ function App() {
     setTimeout(() => {
       setAlert(null);
     }, 5000);
-  };
-
-  // Get single Github user
-  const getUser = async username => {
-    setLoading(true);
-    const res = await axios.get(`https://api.github.com/users/${username}`, {
-      params: {
-        client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
-        client_secret: process.env.REACT_APP_GITHUB_CLIENT_SECRETS
-      }
-    });
-    setUser(res.data);
-    setLoading(false);
   };
 
   // Get user repos
@@ -78,12 +57,8 @@ function App() {
                 path='/'
                 render={() => (
                   <>
-                    <Search
-                      clearUsers={clearUsers}
-                      showClear={users.length > 0 ? true : false}
-                      setAlert={showAlert}
-                    />
-                    <Users loading={loading} users={users} />
+                    <Search setAlert={showAlert} />
+                    <Users />
                   </>
                 )}
               />
@@ -91,14 +66,7 @@ function App() {
                 exact
                 path='/user/:login'
                 render={props => (
-                  <User
-                    user={user}
-                    repos={repos}
-                    loading={loading}
-                    getUser={getUser}
-                    getUserRepos={getUserRepos}
-                    {...props}
-                  />
+                  <User repos={repos} getUserRepos={getUserRepos} {...props} />
                 )}
               />
               <Route exact path='/about' component={About} />
